@@ -2,6 +2,11 @@
 
 금융감독원 API와 공공데이터포털 API를 활용해 금융상품 데이터를 수집하고 MySQL에 저장하는 Python 수집기입니다.
 
+## 브랜치 구조
+| 브랜치 | 설명 | 상태 |
+|---|---|---|
+| `main` | 안정적인 기본 버전 | ✅ 배포 가능 |
+
 ## 기술 스택
 - Python 3.11+
 - requests (HTTP 요청)
@@ -41,27 +46,43 @@ git clone https://github.com/ax-innovation/crawler.git
 cd crawler
 ```
 
-### 2. 라이브러리 설치
+### 2. 브랜치 선택 (선택사항)
+```bash
+# 기본 버전 (main)
+git checkout main
+
+# 특정 기능 브랜치로 변경할 경우
+git checkout 브랜치이름
+```
+
+### 3. 라이브러리 설치
 ```bash
 pip install requests pymysql
 ```
 
-### 3. 설정 파일 생성
+### 4. 설정 파일 생성
+
+**Windows:**
+```bash
+copy run_all.example.py run_all.py
+```
+**Mac/Linux:**
 ```bash
 cp run_all.example.py run_all.py
 ```
+
 `run_all.py` 열어서 아래 항목 입력:
 ```python
 finlife_key = "발급받은_금감원_API키"
 data_go_key = ""               # 없으면 빈 문자열
 db_host     = "localhost"
 db_user     = "root"
-db_pass     = "MySQL_비밀번호"
+db_pass     = "MySQL_비밀번호"  # 영문+숫자만 사용 권장
 db_name     = "findb"
 db_port     = 3306
 ```
 
-### 4. 실행
+### 5. 실행
 ```bash
 python run_all.py
 ```
@@ -74,3 +95,7 @@ python run_all.py
 | loan_product | 대출 상품 기본정보 |
 | loan_option | 대출 금리 옵션 |
 | gov_product | 정부지원 상품 |
+
+## 주의사항
+- MySQL 비밀번호는 **영문+숫자만** 사용 권장 (한글 비밀번호 오류 발생)
+- `run_all.py`는 보안상 `.gitignore`에 포함되어 있어 GitHub에 올라가지 않음
